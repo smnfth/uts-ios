@@ -14,6 +14,9 @@ class ViewController: UIViewController {
         sender.isHidden = true
     }
     
+    func setTimeout(_ delay:TimeInterval, block:@escaping ()->Void) -> Timer {
+        return Timer.scheduledTimer(timeInterval: delay, target: BlockOperation(block: block), selector: #selector(Operation.main), userInfo: nil, repeats: false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +24,15 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        let button = MyButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        
+        let x = CGFloat(arc4random_uniform(UInt32(self.view.frame.width-100)) + 1);
+        let y = CGFloat(arc4random_uniform(UInt32(self.view.frame.height-100)) + 1);
+        
+        //        let button = MyButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+        //        let randomX = CGFloat(randomSource.nextUniform()) * (self.view.frame.width-100)
+        //        let randomY = CGFloat(randomSource.nextUniform()) * (self.view.frame.height-100)
+        let button = MyButton(frame: CGRect(x: x, y: y, width: 100, height: 100))
+        
         button.backgroundColor = .green
         button.setTitle("Test Button", for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
