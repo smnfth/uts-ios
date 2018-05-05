@@ -14,6 +14,7 @@
 		27D97EA5209D430E0051EB16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D97EA3209D430E0051EB16 /* LaunchScreen.storyboard */; };
 		27D97EB0209D430E0051EB16 /* PopUp_BubbleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D97EAF209D430E0051EB16 /* PopUp_BubbleTests.swift */; };
 		27D97EBB209D430E0051EB16 /* PopUp_BubbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D97EBA209D430E0051EB16 /* PopUp_BubbleUITests.swift */; };
+		27D97F07209D68C60051EB16 /* MyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D97F06209D68C60051EB16 /* MyButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		27D97EB6209D430E0051EB16 /* PopUp-BubbleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PopUp-BubbleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27D97EBA209D430E0051EB16 /* PopUp_BubbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp_BubbleUITests.swift; sourceTree = "<group>"; };
 		27D97EBC209D430E0051EB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27D97F06209D68C60051EB16 /* MyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				27D97E9A209D430C0051EB16 /* AppDelegate.swift */,
 				27D97E9C209D430C0051EB16 /* ViewController.swift */,
 				27D97E9E209D430C0051EB16 /* Main.storyboard */,
+				27D97F06209D68C60051EB16 /* MyButton.swift */,
 				27D97EA1209D430E0051EB16 /* Assets.xcassets */,
 				27D97EA3209D430E0051EB16 /* LaunchScreen.storyboard */,
 				27D97EA6209D430E0051EB16 /* Info.plist */,
@@ -258,6 +261,7 @@
 			files = (
 				27D97E9D209D430C0051EB16 /* ViewController.swift in Sources */,
 				27D97E9B209D430C0051EB16 /* AppDelegate.swift in Sources */,
+				27D97F07209D68C60051EB16 /* MyButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

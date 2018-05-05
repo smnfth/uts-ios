@@ -9,9 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    func bubbleTapped(<#parameters#>) -> <#return type#> {
-        <#function body#>
+    
+    @IBAction func bubbleTapped(sender: UIButton) {
+        sender.isHidden = true
     }
     
     
@@ -19,25 +19,30 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let bubbleImage = UIImage.init(imageLiteralResourceName: "pink.jpg")
-        let bubbleView = UIImageView(image: bubbleImage)
-        bubbleView.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
-        let tapHandler = UITapGestureRecognizer(target: self, action: #selector(bubbleTapped(_:)))
-        bubbleView.addGestureRecognizer(tapHandler)
+        super.viewDidLoad()
         
-        self.view.addSubview(bubbleView)
+        let button = MyButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        button.backgroundColor = .green
+        button.setTitle("Test Button", for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+        
+        
+    }
+    
+    
+    @objc func buttonAction(sender: UIButton!) {
+        print("Button tapped")
     }
     
     
     
-    
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 
