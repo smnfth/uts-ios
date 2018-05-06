@@ -18,8 +18,6 @@ struct ScoreRecord: Codable {
 }
 
 class GameRoomTableView: UITableView,UITableViewDelegate,UITableViewDataSource {
-    //    var items: [String] = ["Player1", "Player2", "Player3"]
-    //    var items: [ScoreRecord] = [ScoreRecord(playerName: "jafar",score: 10.0)]
     var items: [ScoreRecord] = []
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
