@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:PopUp-Bubble.xcodeproj">
+      location = "self:pop-monsters.xcodeproj">
    </FileRef>
 </Workspace>

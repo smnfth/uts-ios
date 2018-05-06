@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  PopUp-Bubble
+//  pop-monsters
 //
-//  Created by Samaneh Fathieh on 5/5/18.
+//  Created by Samaneh Fathieh on 6/5/18.
 //  Copyright © 2018 Samaneh Fathieh. All rights reserved.
 //
 

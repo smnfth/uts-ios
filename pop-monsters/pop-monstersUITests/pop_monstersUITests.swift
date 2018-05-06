@@ -1,14 +1,14 @@
 //
-//  PopUp_BubbleUITests.swift
-//  PopUp-BubbleUITests
+//  pop_monstersUITests.swift
+//  pop-monstersUITests
 //
-//  Created by Samaneh Fathieh on 5/5/18.
+//  Created by Samaneh Fathieh on 6/5/18.
 //  Copyright © 2018 Samaneh Fathieh. All rights reserved.
 //
 
 import XCTest
 
-class PopUp_BubbleUITests: XCTestCase {
+class pop_monstersUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
