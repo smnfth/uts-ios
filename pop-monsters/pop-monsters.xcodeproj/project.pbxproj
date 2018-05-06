@@ -17,6 +17,11 @@
 		2784B22D209EF48200425A03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2784B22B209EF48200425A03 /* LaunchScreen.storyboard */; };
 		2784B238209EF48200425A03 /* pop_monstersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784B237209EF48200425A03 /* pop_monstersTests.swift */; };
 		2784B243209EF48200425A03 /* pop_monstersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784B242209EF48200425A03 /* pop_monstersUITests.swift */; };
+		2784B251209EF69A00425A03 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2784B250209EF69A00425A03 /* MenuScene.sks */; };
+		2784B253209EF6AA00425A03 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784B252209EF6AA00425A03 /* MenuScene.swift */; };
+		2784B255209EF6CF00425A03 /* FinishScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2784B254209EF6CF00425A03 /* FinishScene.sks */; };
+		2784B257209EF6DC00425A03 /* FinishScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784B256209EF6DC00425A03 /* FinishScene.swift */; };
+		2784B25B209EF8D000425A03 /* TouchableSKSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2784B25A209EF8D000425A03 /* TouchableSKSpriteNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +58,11 @@
 		2784B23E209EF48200425A03 /* pop-monstersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "pop-monstersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2784B242209EF48200425A03 /* pop_monstersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pop_monstersUITests.swift; sourceTree = "<group>"; };
 		2784B244209EF48200425A03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2784B250209EF69A00425A03 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		2784B252209EF6AA00425A03 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		2784B254209EF6CF00425A03 /* FinishScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FinishScene.sks; sourceTree = "<group>"; };
+		2784B256209EF6DC00425A03 /* FinishScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishScene.swift; sourceTree = "<group>"; };
+		2784B25A209EF8D000425A03 /* TouchableSKSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableSKSpriteNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,13 +115,18 @@
 			children = (
 				2784B21C209EF48000425A03 /* AppDelegate.swift */,
 				2784B21E209EF48000425A03 /* GameScene.sks */,
-				2784B220209EF48000425A03 /* Actions.sks */,
 				2784B222209EF48000425A03 /* GameScene.swift */,
+				2784B220209EF48000425A03 /* Actions.sks */,
 				2784B224209EF48000425A03 /* GameViewController.swift */,
 				2784B226209EF48000425A03 /* Main.storyboard */,
+				2784B25A209EF8D000425A03 /* TouchableSKSpriteNode.swift */,
 				2784B229209EF48200425A03 /* Assets.xcassets */,
 				2784B22B209EF48200425A03 /* LaunchScreen.storyboard */,
 				2784B22E209EF48200425A03 /* Info.plist */,
+				2784B250209EF69A00425A03 /* MenuScene.sks */,
+				2784B252209EF6AA00425A03 /* MenuScene.swift */,
+				2784B254209EF6CF00425A03 /* FinishScene.sks */,
+				2784B256209EF6DC00425A03 /* FinishScene.swift */,
 			);
 			path = "pop-monsters";
 			sourceTree = "<group>";
@@ -239,10 +254,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2784B228209EF48000425A03 /* Main.storyboard in Resources */,
+				2784B251209EF69A00425A03 /* MenuScene.sks in Resources */,
 				2784B21F209EF48000425A03 /* GameScene.sks in Resources */,
 				2784B22A209EF48200425A03 /* Assets.xcassets in Resources */,
 				2784B22D209EF48200425A03 /* LaunchScreen.storyboard in Resources */,
 				2784B221209EF48000425A03 /* Actions.sks in Resources */,
+				2784B255209EF6CF00425A03 /* FinishScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,8 +285,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2784B223209EF48000425A03 /* GameScene.swift in Sources */,
+				2784B257209EF6DC00425A03 /* FinishScene.swift in Sources */,
+				2784B253209EF6AA00425A03 /* MenuScene.swift in Sources */,
 				2784B225209EF48000425A03 /* GameViewController.swift in Sources */,
 				2784B21D209EF48000425A03 /* AppDelegate.swift in Sources */,
+				2784B25B209EF8D000425A03 /* TouchableSKSpriteNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

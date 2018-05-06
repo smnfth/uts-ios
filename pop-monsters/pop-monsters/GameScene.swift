@@ -9,81 +9,214 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, GameSceneDelegate {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    var playerName: String?
+    var settings: Settings?
+    var scoreLabel: SKLabelNode!
+    var timerLbl: SKLabelNode!
+    var lastUpdateTime: TimeInterval = 0
     
+    var maxNumberOfBubbles = 15
+    //random logic
+    var delay: TimeInterval = 0.5
+    var timeSinceStart: TimeInterval = 0.0
+    
+    var lastColor = ""
+    var score: Double = 0
+    
+    var countdownTimer: Timer!
+    var totalTime:Double = 4
+    var TimeInterval = 1
+    
+    let timerLabel = UILabel (frame: CGRect (x: 10, y: 130, width: 280, height: 20))
+    
+    //MARK: - Scene Stuff
     override func didMove(to view: SKView) {
+        monsterSpawner(delay: 0.5)
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+        scoreLabel = childNode(withName: "scoreLabel") as! SKLabelNode
+        scoreLabel.text="0"
+        
+        timerLbl = childNode(withName: "timerLbl") as! SKLabelNode
+        timerLbl.text=""
+        totalTime = (settings?.playTime)!
+        maxNumberOfBubbles = (settings?.maxBubbles)!
+        startTimer()
+    }
+    
+    
+    @objc func updateTime() {
+        timerLbl.text = "\(timeFormatted(Int(totalTime)))"
+        
+        if totalTime != 0 {
+            totalTime -= 1
+        } else {
+            endTimer()
+        }
+    }
+    
+    func startTimer() {
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    func endTimer() {
+        countdownTimer.invalidate()
+        let transition:SKTransition = SKTransition.fade(withDuration: 1)
+        let sceneTemp =  FinishScene(fileNamed: "FinishScene") as FinishScene?
+        sceneTemp?.scaleMode = .aspectFill
+        sceneTemp?.playerName = self.playerName
+        sceneTemp?.score = self.score
+        sceneTemp?.settings = self.settings
+        self.scene?.view?.presentScene(sceneTemp!, transition: transition)
+        timerLbl.removeFromParent()
+        
+    }
+    
+    func timeFormatted(_ totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    func monsterSpawner(delay: TimeInterval){
+        removeAction(forKey: "spawnMonsters")
+        
+        self.delay = delay
+        
+        let delayAction = SKAction.wait(forDuration: delay)
+        let spawnAction = SKAction.run {
+            self.spawnMonster()
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        let sequenceAction = SKAction.sequence([delayAction, spawnAction])
+        let repeatAction = SKAction.repeatForever(sequenceAction)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        run(repeatAction, withKey: "spawnMonsters")
     }
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
+    func checkValidLocation(_ newBubble: SKSpriteNode) -> Bool {
+        for subview in (self.children) {
+            if let existingBubble = subview as? SKSpriteNode {
+                if existingBubble.frame.intersects(newBubble.frame) {
+                    return false
+                }
+            }
         }
+        return true
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
+    func spawnMonster(){
+        if(self.children.count > maxNumberOfBubbles + 1) {
+            return
         }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        //size
+        var monsterSize = CGSize(width: 100, height: 70)
+        
+        let randomSize = arc4random() % 3
+        
+        switch randomSize {
+        case 1:
+            monsterSize.width *= 1.2
+            monsterSize.height *= 1.2
+        case 2:
+            monsterSize.width *= 1.5
+            monsterSize.height *= 1.5
+        default:
+            break
         }
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        //position
+        let y = size.height/2+monsterSize.height/2
+        let cSpots = [-1*(size.width/2-monsterSize.width/2)
+            ,-1*(size.width/4-monsterSize.width/2)
+            ,0
+            ,size.width/4-monsterSize.width/2
+            ,size.width/2-monsterSize.width/2]
+        let randomX = cSpots[Int(arc4random() % 5)]
+        let colors = ["black", "blue", "blue", "green", "green", "green", "purple", "purple", "purple", "purple", "purple", "purple", "red", "red", "red", "red", "red", "red", "red", "red"];
+        let randomIndex = Int(arc4random_uniform(UInt32(colors.count)))
+        let color = colors[randomIndex]
+        
+        //init
+        let monster = TouchableSKSpriteNode(imageNamed: color)
+        monster.size = CGSize(width: 100.0,height: 100.0)
+        monster.isUserInteractionEnabled = true
+        monster.position = CGPoint(x: randomX, y: y)
+        monster.bubbleType = color
+        monster.delegate = self
+        if checkValidLocation(monster) {
+            addChild(monster)
+        }
+        
+        //move
+        let moveDownAction = SKAction.moveBy(x: 0, y: -size.height-monster.size.height, duration: 20.0)
+        let destroyAction = SKAction.removeFromParent()
+        let sequenceAction = SKAction.sequence([moveDownAction, destroyAction])
+        monster.run(sequenceAction)
+        
+        //rotation
+        var rotateAction = SKAction.rotate(byAngle: 1, duration: 1)
+        
+        let randomRotation = arc4random() % 2
+        
+        if randomRotation == 1  {
+            rotateAction = SKAction.rotate(byAngle: -1, duration: 1)
+        }
+        
+        let repeatForeverAction = SKAction.repeatForever(rotateAction)
+        if arc4random() % 5 != 0 {
+            monster.run(repeatForeverAction)
+        }
+        
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        
+        if lastUpdateTime == 0 {
+            lastUpdateTime = currentTime
+            return
+        }
+        
+        let dt = currentTime - lastUpdateTime
+        
+        //difficulty
+        timeSinceStart += dt
+        
+        if timeSinceStart > 5 && delay > 0.4 {
+            print("0.4")
+            monsterSpawner(delay: 0.4)
+        } else if timeSinceStart > 10 && delay > 0.3 {
+            print("0.1")
+            monsterSpawner(delay: 0.1)
+        }
+        
+        lastUpdateTime = currentTime
+    }
+    
+    func calledFromBubble(_ button: TouchableSKSpriteNode) {
+        var point: Double = 0;
+        if button.bubbleType == "red" {
+            point = 1
+        }
+        if button.bubbleType == "purple" {
+            point = 2
+        }
+        if button.bubbleType == "green" {
+            point = 5
+        }
+        if button.bubbleType == "blue" {
+            point = 8
+        }
+        if button.bubbleType == "black" {
+            point = 10
+        }
+        
+        if lastColor == button.bubbleType {
+            point *= 1.5
+        }
+        lastColor = button.bubbleType
+        score += point;
+        scoreLabel.text = String(score)
     }
 }
