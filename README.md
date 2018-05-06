@@ -2,7 +2,7 @@
 
 Action Puzzle Game for iOS
 
-![alt text](https://github.com/smnfth/uts-ios/blob/master/May-06-2018%2021-03-59.gif.sb-66cdd2a9-UDq3Ov?raw=true)
+![alt text](https://github.com/smnfth/uts-ios/blob/master/gif.gif?raw=true)
 
 
 ### Instructions

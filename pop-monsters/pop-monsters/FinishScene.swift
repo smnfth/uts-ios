@@ -8,6 +8,7 @@
 
 import SpriteKit
 
+// Struct to hold each players record
 struct ScoreRecord: Codable {
     let playerName: String
     let score: Double
@@ -17,6 +18,7 @@ struct ScoreRecord: Codable {
     }
 }
 
+// Custom Table view to show top users scores
 class GameRoomTableView: UITableView,UITableViewDelegate,UITableViewDataSource {
     var items: [ScoreRecord] = []
     override init(frame: CGRect, style: UITableViewStyle) {
@@ -64,6 +66,12 @@ class FinishScene: SKScene {
         gameTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         gameTableView.frame = CGRect(x:20,y:50,width:280,height:200)
         self.scene?.view?.addSubview(gameTableView)
+        
+        /**
+         First we load the data then sort with the highest on top.
+         And finally we remove duplicates from the list.
+         This will make sure the highest score of the user will stay in the unique list
+        */
         loadData()
         self.records.append(r)
         let sorted = records.sorted(by: {(n1:ScoreRecord, n2:ScoreRecord) -> Bool in return n2.score < n1.score})
@@ -73,11 +81,18 @@ class FinishScene: SKScene {
         saveData(records: self.records)
     }
     
-    
+    /**
+     A helper function to strip out records with the same player name from
+     a give score record list.
+     */
     private func uniq(scores: [ScoreRecord]) -> [ScoreRecord]{
         var seen = Set<String>()
         var unique: [ScoreRecord] = []
         for score in scores {
+            /*
+             This will check if the seen Set doesnt have the record,
+             it adds it to the unique list as well as the seen Set
+             */
             if !seen.contains(score.playerName) {
                 unique.append(score)
                 seen.insert(score.playerName)
@@ -93,6 +108,10 @@ class FinishScene: SKScene {
             
             if let name = touchedNode.name
             {
+                /*
+                 If user touched a node which has the name of
+                 playAgainButton button, then transit to the other screen (ie. MenuScene)
+                 */
                 if name == "playAgainButton"
                 {
                     let transition:SKTransition = SKTransition.fade(withDuration: 1)

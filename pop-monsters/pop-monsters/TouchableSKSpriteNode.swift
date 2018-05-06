@@ -12,7 +12,12 @@ protocol GameSceneDelegate: class {
     func calledFromBubble(_ button: TouchableSKSpriteNode)
 }
 
-
+/*
+ This class is to add touchable functionality to SKSpriteNode
+ This will be used for the monsters and when user touches a monster
+ a delegate (calledFromBubble) will be called.
+ This calledFromBubble will be handled in the GameScene.swift file
+ */
 class TouchableSKSpriteNode: SKSpriteNode {
     var scoreLabel: SKLabelNode!
     var bubbleType = ""

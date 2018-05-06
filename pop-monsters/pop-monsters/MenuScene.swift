@@ -28,6 +28,8 @@ class MenuScene: SKScene {
     override func didMove(to view: SKView) {
         loadSlider()
         loadTextInput()
+        // Set default player name to 'Player1'
+        // in case user left the text box blank
         playerName = "Player1"
     }
     
@@ -41,6 +43,10 @@ class MenuScene: SKScene {
             
             if let name = touchedNode.name
             {
+                /*
+                 If user touched a node which has the name of
+                 startGame, then transit to the other screen (ie. gameScene)
+                 */
                 if name == "startGame"
                 {
                     let transition:SKTransition = SKTransition.fade(withDuration: 1)
@@ -92,19 +98,18 @@ class MenuScene: SKScene {
     @objc func slider2ValueDidChange(_ sender:UISlider!)
     {
         var time = round(sender.value*60)
-        if time < 10 {
-            time = 10
+        
+        // Minimum seconds of the timer is 5 seconds
+        if time < 5 {
+            time = 5
         }
         settings?.playTime = Double(time)
         labelSlider2.text = String(time)
     }
-    
+    /**/
     @objc func slider1ValueDidChange(_ sender:UISlider!)
     {
-        var number = round(sender.value*15)
-        if number < 1 {
-            number = 1
-        }
+        let number = round(sender.value*15)
         labelSlider.text = String(number)
         settings?.maxBubbles = Int(number)
     }
