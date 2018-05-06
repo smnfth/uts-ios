@@ -16,11 +16,11 @@ class MenuScene: SKScene {
     var viewController: GameViewController!
     weak var menuDelegate: MenuSceneDelegate?
     var TextInput:UITextField?
-    let slider = UISlider(frame: CGRect(x: 10, y: 250, width: 280, height: 20))
-    let slider2 = UISlider(frame: CGRect(x: 10, y: 150, width: 280, height: 20))
-    let labelSlider = UILabel (frame: CGRect (x: 10, y: 230, width: 280, height: 20))
-    let labelSlider2 = UILabel (frame: CGRect (x: 10, y: 130, width: 280, height: 20))
-    let textField = UITextField(frame: CGRect(x: 10, y: 400, width: 280, height: 50))
+    let slider = UISlider(frame: CGRect(x: 10, y: 230, width: 280, height: 20))
+    let slider2 = UISlider(frame: CGRect(x: 10, y: 170, width: 280, height: 20))
+    let labelSlider = UILabel (frame: CGRect (x: 10, y: 210, width: 280, height: 100))
+    let labelSlider2 = UILabel (frame: CGRect (x: 10, y: 190, width: 280, height: 20))
+    let textField = UITextField(frame: CGRect(x: 10, y: 280, width: 280, height: 35))
     
     var playerName: String?
     var settings: Settings?
@@ -49,7 +49,6 @@ class MenuScene: SKScene {
                     gameSceneTemp?.settings = settings
                     gameSceneTemp?.playerName = playerName
                     self.scene?.view?.presentScene(gameSceneTemp!, transition: transition)
-                    
                     slider.removeFromSuperview()
                     labelSlider.removeFromSuperview()
                     slider2.removeFromSuperview()
@@ -63,6 +62,12 @@ class MenuScene: SKScene {
     private func loadTextInput() {
         textField.backgroundColor = UIColor.white
         textField.placeholder = "Player1"
+        textField.layer.borderWidth = 0.5
+        textField.layer.cornerRadius = 5
+        let leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 2.0))
+        textField.leftView = leftView
+        textField.leftViewMode = .always
+        
         textField.addTarget(self, action: #selector(MenuScene.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         view?.addSubview(textField)
     }
